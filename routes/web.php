@@ -36,3 +36,9 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('tamu', [TamuController::class, 'index'])->name('tamu');
     });
 });
+
+Route::get('/create-kamar', [AdminController::class, 'create']);
+Route::post('/save-kamar', [AdminController::class, 'store'])->name('simpan-kamar');
+
+Route::get('/edit-kamar/{id}', [AdminController::class, 'edit']);
+Route::put('update-kamar/{id}', [AdminController::class, 'update'])->name('update-kamar');
