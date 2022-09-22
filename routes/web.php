@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TamuController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ResepsionisController;
+use App\Http\Controllers\FasilitasKamarController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,8 +38,17 @@ Route::group(['middleware' => ['auth']], function () {
     });
 });
 
+// kamar
 Route::get('/create-kamar', [AdminController::class, 'create']);
 Route::post('/save-kamar', [AdminController::class, 'store'])->name('simpan-kamar');
 
 Route::get('/edit-kamar/{id}', [AdminController::class, 'edit']);
 Route::put('update-kamar/{id}', [AdminController::class, 'update'])->name('update-kamar');
+
+// fasilitas kamar
+Route::get('/fasilitas-kamar', [FasilitasKamarController::class, 'index']);
+Route::get('/create-f-kamar', [FasilitasKamarController::class, 'create']);
+Route::post('/save-f-kamar', [FasilitasKamarController::class, 'store'])->name('simpan-fasilitas-kamar');
+
+Route::get('/edit-f-kamar/{id}', [FasilitasKamarController::class, 'edit']);
+Route::put('update-f-kamar/{id}', [FasilitasKamarController::class, 'update'])->name('update-fasilitas-kamar');
