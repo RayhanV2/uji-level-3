@@ -2,21 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Fasilitas_k;
 use App\Models\Kamar;
 use Illuminate\Http\Request;
 
-class AdminController extends Controller
+class FasilitasKamarController extends Controller
 {
     public function index()
     {
-        $datakamar = Kamar::all();
-        return view('Admin.home', compact('datakamar'));
+        $data_f_kamar = Fasilitas_k::all();
+        return view('Admin.F_kamar.home', compact('data_f_kamar'));
     }
 
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function create()
     {
-        $datakamar = Kamar::all();
-        return view('Admin.create', compact('datakamar'));
+        $datatipekamar = Kamar::all();
+        return view('Admin.F_kamar.create', compact('datatipekamar'));
     }
 
     /**
@@ -29,15 +35,15 @@ class AdminController extends Controller
     {
         $this->validate($request,[
             'tipe_kamar' => 'required',
-            'jumlah_kamar' => 'required',
+            'nama_fasilitas' => 'required',
         ]);
 
-        $data = Kamar::create ([
+        $data = Fasilitas_k::create ([
             'tipe_kamar' => $request->tipe_kamar,
-            'jumlah_kamar' => $request->jumlah_kamar,
+            'nama_fasilitas' => $request->nama_fasilitas,
         ]);
 
-        return redirect('/admin')->with('success','Data Berhasil Di Tambahkan');
+        return redirect('/fasilitas-kamar')->with('success','Data Berhasil Di Tambahkan');
     }
 
     /**
@@ -59,8 +65,8 @@ class AdminController extends Controller
      */
     public function edit($id)
     {
-        $kamar = Kamar::findorfail($id);
-        return view('Admin.edit',compact('kamar'));
+        $fasilitaskamar = Fasilitas_k::findorfail($id);
+        return view('Admin.F_kamar.edit',compact('fasilitaskamar'));
     }
 
     /**
@@ -74,13 +80,13 @@ class AdminController extends Controller
     {
         $this->validate($request,[
             'tipe_kamar' => 'required',
-            'jumlah_kamar' => 'required',
+            'nama_fasilitas' => 'required',
         ]);
 
-        $kamar = Kamar::findorfail($id);
-        $kamar->update($request->all());
+        $fasilitaskamar = Fasilitas_k::findorfail($id);
+        $fasilitaskamar->update($request->all());
         
-        return redirect('/admin')->with('success','Data Berhasil Di Edit');
+        return redirect('/fasilitas-kamar')->with('success','Data Berhasil Di Edit');
     }
 
      /**
@@ -89,10 +95,5 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    // public function destroy($id)
-    // {
-    //     $kamar = Kamar::findorfail($id);
-    //     $kamar->delete();
-    //     return back()->with('destroy','Data Berhasil Di Destroy');
-    // }
+
 }

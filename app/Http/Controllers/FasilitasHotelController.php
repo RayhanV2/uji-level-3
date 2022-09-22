@@ -2,21 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Kamar;
+use App\Models\Fasilitas_hotel;
 use Illuminate\Http\Request;
 
-class AdminController extends Controller
+class FasilitasHotelController extends Controller
 {
     public function index()
     {
-        $datakamar = Kamar::all();
-        return view('Admin.home', compact('datakamar'));
+        $datafasilitashotel = Fasilitas_hotel::all();
+        return view('Admin.F_hotel.home', compact('datafasilitashotel'));
     }
 
     public function create()
     {
-        $datakamar = Kamar::all();
-        return view('Admin.create', compact('datakamar'));
+        $datafasilitashotel = Fasilitas_hotel::all();
+        return view('Admin.F_hotel.create', compact('datafasilitashotel'));
     }
 
     /**
@@ -28,16 +28,18 @@ class AdminController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'tipe_kamar' => 'required',
-            'jumlah_kamar' => 'required',
+            'nama_fasilitas' => 'required',
+            'keterangan' => 'required',
+            'image' => 'required',
         ]);
 
-        $data = Kamar::create ([
-            'tipe_kamar' => $request->tipe_kamar,
-            'jumlah_kamar' => $request->jumlah_kamar,
+        $data = Fasilitas_hotel::create ([
+            'nama_fasilitas' => $request->nama_fasilitas,
+            'keterangan' => $request->keterangan,
+            'image' => $request->image,
         ]);
 
-        return redirect('/admin')->with('success','Data Berhasil Di Tambahkan');
+        return redirect('/fasilitas-hotel')->with('success','Data Berhasil Di Tambahkan');
     }
 
     /**
@@ -59,8 +61,8 @@ class AdminController extends Controller
      */
     public function edit($id)
     {
-        $kamar = Kamar::findorfail($id);
-        return view('Admin.edit',compact('kamar'));
+        $fasilitashotel = Fasilitas_hotel::findorfail($id);
+        return view('Admin.F_hotel.edit',compact('fasilitashotel'));
     }
 
     /**
@@ -73,14 +75,15 @@ class AdminController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request,[
-            'tipe_kamar' => 'required',
-            'jumlah_kamar' => 'required',
+            'nama_fasilitas' => 'required',
+            'keterangan' => 'required',
+            'image' => 'required',
         ]);
 
-        $kamar = Kamar::findorfail($id);
-        $kamar->update($request->all());
+        $fasilitashotel = Fasilitas_hotel::findorfail($id);
+        $fasilitashotel->update($request->all());
         
-        return redirect('/admin')->with('success','Data Berhasil Di Edit');
+        return redirect('/fasilitas-hotel')->with('success','Data Berhasil Di Edit');
     }
 
      /**
